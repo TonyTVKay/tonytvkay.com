@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="old stylesheet" type="text/css" href="{%  static 'css/bootstrap.css' %}">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.2.9/css/jquery.mb.YTPlayer.min.css">
+<link rel="newer stylesheet" href="{%  static 'css/bulma.css' %}">
+<link rel="stylesheet" href="{%  static 'css/elements.css' %}">
+<link rel="stylesheet" href="{%  static 'css/scary.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  /* homepage video carousel*/
+  .carousel .inner-content.vid-inner-content {
+    height: 405px;
+    width: 720px;
+    display: inline-block;
+  }
+
+  .carousel .carousel-indicators {
+    bottom: 0px;
+  }
+
+  .carousel .carousel-indicators li {
+    margin: 0 2px;
+    width: 18px;
+    height: 18px;
+    background: transparent;
+    border-color: #0056b8;
+    border-width: 3px;
+  }
+
+  .carousel .carousel-indicators li.active {
+    background: rgba(0, 86, 184, 1);
+  }
+
+  .carousel#video-carousel {
+    padding-bottom: 0px;
+  }
+
+  .carousel#video-carousel .carousel-inner {
+    border: 0px solid #fff;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .carousel#video-carousel .carousel-inner .inner-content.vid-inner-content .youtube-video {
+    position: inherit;
+    left: 0;
+    top: 0;
+  }
+
+  .carousel#video-carousel .carousel-control {
+    color: rgb(255, 255, 255);
+    width: 5%;
+    line-height: 400px;
+    background: none;
+  }
+
+  .carousel#video-carousel .carousel-control:hover,
+  .carousel#video-carousel .carousel-control:focus,
+  .carousel#video-carousel .carousel-control:active {
+    color: rgb(177, 177, 177);
+  }
+
+  .carousel-control {
+    width: 5%;
+  }
+
+  .carousel .carousel-control {
+    background: transparent;
+    text-shadow: none;
+    color: rgba(0, 86, 184, 1);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .carousel .inner-content.vid-inner-content {
+      height: 293px;
+      width: 520px;
+      display: inline-block;
+    }
+
+    .carousel-control {
+      width: 5%;
+    }
+  }
+
+  @media (max-width: 414px) {
+    .carousel .inner-content.vid-inner-content {
+      height: 100%;
+      width: 320px;
+      display: inline-block;
+    }
+
+    .vid-carousel-control {
+      display: none;
+    }
+
+    .carousel .carousel-indicators {
+      bottom: 40px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .carousel .inner-content.vid-inner-content {
+      height: 100%;
+      width: 266px;
+      display: inline-block;
+    }
+
+    .vid-carousel-control {
+      display: none;
+    }
+
+    .carousel .carousel-indicators {
+      bottom: 40px;
+    }
+  }
+</style>
+
+<section
+  style="text-align: center; background: url('{% static object.image_path %}') 50% 50%; background-size: cover; height: 30%; vertical-align: middle;">
+  <br><h4>{{object.title}}</h4><br>
+</section>
+
+<div class="container" style="padding-top:25px;">
+  <div class="row" style="margin-left:30px;margin-right:30px;">
+    <div class="col-md-12 col-lg-12 text-center">
+      <div id="video-carousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+
+        <!-- Wrapper for slides -->
+        
+        <div class="carousel-inner" role="listbox">
+          {% if object.trailer1 != "none" %}
+          <div class="item active">
+            <div class="inner-content vid-inner-content">
+              <div id="vid-0" data-id={{object.trailer1}} class="youtube-video"></div>
+            </div>
+          </div>
+          {% endif %}
+          {% if object.trailer2 != "none" %}
+          <div class="item">
+            <div class="inner-content vid-inner-content">
+              <div id="vid-1" data-id={{object.trailer2}} class="youtube-video"></div>
+            </div>
+          </div>
+          {% endif %}
+          {% if object.trailer3 != "none" %}
+          <div class="item">
+            <div class="inner-content vid-inner-content">
+              <div id="vid-2" data-id="{{object.trailer3}}" class="youtube-video"></div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <!-- Controls -->
+        {% if object.trailer2 != "none" %}
+        <a class="left carousel-control vid-carousel-control" href="#video-carousel" role="button" data-slide="prev">
+          <span class="glyphicon fa fa-chevron-left fa-3x" aria-hidden="true"></span> <span
+            class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control vid-carousel-control" href="#video-carousel" role="button" data-slide="next">
+          <span class="glyphicon fa fa-chevron-right fa-3x" aria-hidden="true"></span> <span class="sr-only">Next</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container" style="color:white; max-width:75%;">
+      {{object.content}}
+      <br><br>
+      <p>Time to Play: 60 Minutes</p><p> 4-6 Players Recommended </p>
+      <br>Difficulty:
+        {% with ''|center:object.difficulty as range %}
+        {% for _ in range %}
+        <img src="{%  static 'images/panko-rating.png' %}" style="width:50px;" />
+        {% endfor %}
+        {% endwith %}
+        {% with ''|center:object.difficultyLeft as range %}
+        {% for _ in range %}
+        <img src="{%  static 'images/panko-rating-clear.png' %}" style="width:50px;" />
+        {% endfor %}
+        {% endwith %}
+        
+        <br>
+        <br>
+      <div style="text-align: center;">
+        <a href="{% url 'book-now' %}" class="button is-large"
+                  style="background-color:#ffae00; border-color: orange; width:70%;font-size:50px;">Book Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.2.9/jquery.mb.YTPlayer.min.js"></script>
+<script>
+  (function () {
+    // setup your carousels as you normally would using JS
+    // or via data attributes according to the documentation
+    // https://getbootstrap.com/javascript/#carousel
+    $('#video-carousel').carousel({ interval: false }); //Disable auto-slide
+  }());
+
+  /*
+  * Video carousel - Dynamically load in YouTube videos based on 'data-id'
+  */
+  //Load the YouTube Iframe API
+  var tag = document.createElement('script');
+
+  tag.src = "//www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
+  //This will be the object name for interacting with the videos in the rest of this code
+  var videoArray = new Array();
+
+  //Function: onYouTubePlayerAPIReady - Run when API is ready
+  function onYouTubePlayerAPIReady() {
+
+    //Look for video 'data-id' in the '.youtube-video' div
+    var videos = document.querySelectorAll('#video-carousel .youtube-video');
+
+
+    //Loop through each div found
+    for (var i = 0; i < videos.length; i++) {
+
+      //Create an array to hold the video IDs from 'data-id'
+      dataset = videos[i].dataset.id;
+      cclang = videos[i].dataset.lang;
+      ccpolicy = videos[i].dataset.cc;
+
+      //This will be the variable name for inserting videos into the HTML divs
+      var divID = 'vid-' + i.toString();
+
+      //Setup video object, configure how videos should be presented
+      videoArray[i] = new YT.Player(divID, {
+        height: '100%',
+        width: '100%',
+        playerVars: {
+          'autoplay': 0,
+          'controls': 1,
+          'modestbranding': 1,
+          'rel': 0,
+          'showinfo': 0,
+          'loop': 1,
+          'iv_load_policy': 3,
+          'cc_lang_pref': cclang,
+          'cc_load_policy': ccpolicy
+        },
+        videoId: dataset, //Uses current looped ID from array
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+
+    }
+  }
+
+  //Function: onPlayerReady - Run when video player is ready
+  function onPlayerReady(event) {
+
+    //When the Bootstrap Carousel moves
+    $('#video-carousel').on('slide.bs.carousel', function () {
+
+      //Find each Iframe within '#video-carousel'
+      $(this).find('iframe').each(function () {
+
+        //Pause all YouTube videos
+        event.target.pauseVideo();
+
+      });
+
+
+      //Show custom video button
+      //$('.play-button-wrapper .btn-video').show();
+
+    });
+
+
+  }
+
+  //Function: onPlayerStateChange - Run when a videos state has changed
+  function onPlayerStateChange(event) {
+
+    //Find all custom video buttons within '#video-carousel'
+    $("#video-carousel").find('.play-button-wrapper .btn-video').each(function () {
+
+      //If video has Ended
+      if (event.data == YT.PlayerState.ENDED) {
+        $(this).fadeIn("Slow");//Fade out
+        $(this).find('i').attr("class", "fa fa-play");
+      }
+
+      //If video is Playing
+      if (event.data == YT.PlayerState.PLAYING) {
+        $(this).find('i').attr("class", "fa fa-pause");//Change icon
+        $(this).fadeOut("Slow");//Fade out
+      }
+
+      //If video is Paused
+      if (event.data == YT.PlayerState.PAUSED) {
+        $(this).fadeIn("Slow");//Fade out
+        $(this).find('i').attr("class", "fa fa-play");
+      }
+
+      //If video is Buffering
+      if (event.data == YT.PlayerState.BUFFERING) {
+        $(this).find('i').attr("class", "fa fa-circle-o-notch fa-spin fa-fw");
+      }
+
+    });
+  }
+
+  //Bind Click and Touchstart events to the custom video button
+  $(".play-button-wrapper").bind("click touchstart", function () {
+
+    //Find the active carousel slide and target the Iframe within it
+    $("#video-carousel").find('.active iframe').each(function () {
+
+      //Find the integer from the div ID and split - Use objectID[1] to output the integer
+      var objectID = $(this).attr('id').split('-');
+
+
+      //If the active slide's video is Playing
+      if (videoArray[objectID[1]].getPlayerState() == 1) {
+        videoArray[objectID[1]].pauseVideo(); //Pause video on click
+
+        //If the active slide's video is Paused
+      } else if (videoArray[objectID[1]].getPlayerState() == 2) {
+        videoArray[objectID[1]].playVideo(); //Play video on click
+
+        //If the video is doing anything else
+      } else {
+        videoArray[objectID[1]].playVideo(); //Play video on click
+      }
+
+    });
+  });
+</script>
+{% endblock content %}

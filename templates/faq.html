@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=.5">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background:  url("{% static 'images/lamp1.jpg' %}") no-repeat top center;
+        background-size: cover;
+        min-height: 100vh;
+    }
+    section {
+        width: 100%;
+        min-height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 50px;
+    }
+
+    .container {
+        widows: 100%;
+        max-width: 80%;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .accordion {
+        max-width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        overflow: hidden;
+        font-family: "Roboto", sans-serif;
+        background: #ff9900;
+    }
+
+    .accordion__label,
+    .accordion__content {
+        padding: 14px 20px;
+    }
+
+    .accordion__label {
+        display: block;
+        color: #ffffff;
+        font-weight: 500;
+        cursor: pointer;
+        position: relative;
+        transition: background 0.5s;
+    }
+
+    .accordion__label:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .accordion__label::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+        width: 12px;
+        height: 6px;
+        background-image: url('data:image/svg+xml;utf8,<svg width="100" height="50" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 100,0 50,50" style="fill:%23FFFFFF99;" /></svg>');
+        background-size: contain;
+        transition: transform ;
+    }
+
+    .accordion__content {
+        background: #ffffff;
+        line-height: 1.6;
+        font-size: 1em;
+        display: none;
+    }
+
+    .accordion__input {
+        display: none;
+    }
+
+    .accordion__input:checked~.accordion__content {
+        display: block;
+    }
+
+    .accordion__input:checked~.accordion__label::after {
+        transform: translateY(-50%) rotate(0.5turn);
+    }
+</style>
+
+<div style="text-align: center;">
+    <br>
+    <h4>FAQ</h4>
+</div>
+<br><br>
+<section>
+    <div class="container">
+        {% for faq in faq_list %}
+        <div class="accordion">
+            <div>
+                <input type="checkbox" name="example_accordion" id='{{faq.question}}' class="accordion__input">
+                <label for='{{faq.question}}' class="accordion__label" style="font-size: 1em;">{{faq.question}}</label>
+                <div class="accordion__content">
+                    <p>{{faq.answer}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{%endblock%}

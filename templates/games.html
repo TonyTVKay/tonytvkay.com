@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section
+  style="text-align: center; background: url('{% static 'images/scores.jpg' %}') 50% 30%; background-size: cover; height: 30%; vertical-align: middle;">
+  <br><h4>Video Games</h4><br>
+</section>
+<section class="section has-background-dark" style="min-height:700px;">
+  <div class="columns">
+    <div class="column is-1"></div>
+    <div class="column is-10">
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="columns is-mobile is-multiline" style="align-items: center; justify-content: center;">
+          {% for game in game_list %}
+          <div class="column game" style="min-width: 400px;">
+            <div style="text-align: center;">
+              <a class="field" href="{% url 'game_detail' game.slug  %}" style="font-family: 'Denk One', sans-serif; font-size: 40px; color:white;">{{ game.title }}</a>
+              <div class="hovereffect" style="margin-top:10px;margin-bottom:10px;">
+                <figure class="img-responsive">
+                    <a href="{% url 'game_detail' game.slug  %}"><img src="{%  static game.image_path %}" /></a>
+                </figure>
+              </div>
+              <div>
+                <a href="{%  static game.download_path %}" download class="button is-large" style="background-color:#ffae00; border-color: orange;">Download Demo</a>
+              </div>
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="column is-1"></div>
+  </div>
+</section>
+<script>
+  function openFullscreen(vidId) {
+    var elem = document.getElementById(vidId);
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+    elem.style.height = '100%';
+    elem.style.width = '100%';
+    elem.play();
+  }
+</script>
+
+</section>
+{%endblock%}
